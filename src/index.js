@@ -9,10 +9,10 @@ export default () => (
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: '#000',
+      backgroundColor: '#fff',
     }}
   >
-    {/* <ButtonOnShow /> */}
+    <ButtonOnShow />
     <RatingStars />
   </View>
 );

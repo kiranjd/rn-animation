@@ -1,10 +1,12 @@
-import React, { useRef, useCallback } from 'react';
-import { TouchableWithoutFeedback, Animated } from 'react-native';
+import React, { useCallback } from 'react';
+import { TouchableWithoutFeedback, Animated, Easing } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { sequence, useAnimatedValue, parallel } from './utils';
 
 export default ({ starFilled, onPress }) => {
-  const scale = useRef(new Animated.Value(1)).current;
+  const scale = useAnimatedValue(1);
+  const rotate = useAnimatedValue(0);
 
   const animatePressIn = useCallback(() => {
     Animated.timing(scale, {
@@ -15,13 +17,35 @@ export default ({ starFilled, onPress }) => {
   }, [scale]);
 
   const animatePressOut = useCallback(() => {
-    // scale-down it original size
-    Animated.timing(scale, {
-      toValue: 1,
-      duration: 150,
-      useNativeDriver: true,
-    }).start();
-  }, [scale]);
+    sequence([
+      Animated.timing(scale, {
+        toValue: 2,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+    ])(() =>
+      parallel([
+        Animated.timing(rotate, {
+          toValue: 1,
+          easing: Easing.bounce,
+          useNativeDriver: true,
+        }),
+        Animated.spring(scale, {
+          toValue: 1,
+          useNativeDriver: true,
+        }),
+      ])(),
+    );
+  }, [rotate, scale]);
+
+  /**
+   * Expectd animation:
+   * > The total animation time should not be more than 300ms
+   * 1. On press-in: Scale down the star
+   * 2. On press-out: Scale up the star to ~1.8
+   * 3. Slowly rotate the star. Doesn't have to be 360deg rotation
+   * 4. Simultaneously, scale down the star and complete the 360deg rotation
+   */
 
   const onPressIn = () => {
     onPress();
@@ -37,13 +61,12 @@ export default ({ starFilled, onPress }) => {
       style={{
         transform: [
           { scale },
-          // {
-          // rotate: scale.interpolate({
-          //   inputRange: [0.5, 1],
-          //   outputRange: ['180deg', '0deg'],
-          // }),
-          // rotate: '360deg',
-          // },
+          {
+            rotate: rotate.interpolate({
+              inputRange: [0, 1],
+              outputRange: ['0deg', '360deg'],
+            }),
+          },
         ],
       }}
     >
