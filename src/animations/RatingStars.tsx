@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react';
 import { Animated, FlatList } from 'react-native';
-
-import Star from './Star';
+import { Star } from './Star';
 
 const initialState = [
   {
@@ -30,8 +29,6 @@ export default () => {
   const scale = useRef(new Animated.Value(0.7)).current;
   const [showStars, setShowStars] = useState(initialState);
 
-  useEffect(() => animate(), [animate]);
-
   const animate = useCallback(() => {
     Animated.spring(scale, {
       toValue: 1,
@@ -40,7 +37,9 @@ export default () => {
     }).start();
   }, [scale]);
 
-  const starPressed = (indexTill) => {
+  useEffect(() => animate(), [animate]);
+
+  const starPressed = (indexTill: any) => {
     setShowStars((prevState) => {
       const selectedStars = prevState.map((item, index) => ({
         ...item,
@@ -51,7 +50,7 @@ export default () => {
     });
   };
 
-  const renderStars = ({ item, index }) => {
+  const renderStars = (item: any, index: any) => {
     const starFilled = item.selected;
     return (
       <Star
@@ -81,7 +80,17 @@ export default () => {
         horizontal
         scrollEnabled={false}
       /> */}
-      {showStars.map((item, index) => renderStars({ item, index }))}
+      {/* {showStars.map((item, index) => renderStars(item, index))} */}
+      {
+        showStars.map((x, index) => {
+          <Star
+            key={x.id}
+            starFilled={x.selected}
+            index={index}
+            onPress={() => starPressed(index)}
+          />
+        })
+      }
     </Animated.View>
   );
 };

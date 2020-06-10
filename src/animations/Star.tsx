@@ -1,10 +1,18 @@
 import React, { useCallback } from 'react';
 import { TouchableWithoutFeedback, Animated, Easing } from 'react-native';
-
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { sequence, useAnimatedValue, parallel } from './utils';
 
-export default ({ starFilled, onPress }) => {
+interface Props {
+  key: string | number | undefined
+  starFilled: boolean
+  index: number
+  onPress: () => void
+}
+
+// export default ({ starFilled, onPress }) => {
+
+export function Star(props: Props) {
   const scale = useAnimatedValue(1);
   const rotate = useAnimatedValue(0);
 
@@ -48,7 +56,7 @@ export default ({ starFilled, onPress }) => {
    */
 
   const onPressIn = () => {
-    onPress();
+    props.onPress();
     animatePressIn();
   };
 
@@ -72,7 +80,7 @@ export default ({ starFilled, onPress }) => {
     >
       <TouchableWithoutFeedback onPressIn={onPressIn} onPressOut={onPressOut}>
         <Icon
-          name={starFilled ? 'star' : 'star-o'}
+          name={props.starFilled ? 'star' : 'star-o'}
           size={60}
           color="#FFD700"
           style={{ margin: 5 }}
