@@ -6,10 +6,6 @@ export default function CircularAnim() {
   const opacity = useRef(new Animated.Value(0)).current;
   const borderRadius = useRef(new Animated.Value(150)).current;
 
-  useEffect(() => {
-    animate();
-  }, [animate]);
-
   const animate = useCallback(
     () =>
       Animated.sequence([
@@ -18,16 +14,20 @@ export default function CircularAnim() {
           toValue: 1,
           bounciness: 8,
           useNativeDriver: true,
-        }).start(),
+        }),
         Animated.timing(opacity, {
           toValue: 1,
           duration: 300,
           easing: Easing.linear,
           useNativeDriver: true,
-        }).start(),
-      ]),
+        }),
+      ]).start(),
     [opacity, scale],
   );
+
+  useEffect(() => {
+    animate();
+  }, [animate]);
 
   return (
     <Animated.View
