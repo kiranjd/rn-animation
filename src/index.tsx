@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { ButtonOnShow } from './animations';
 import RatingStars from './animations/RatingStars';
 
@@ -14,5 +14,6 @@ export default () => (
   >
     {/* <ButtonOnShow /> */}
     <RatingStars />
+    <Text>Whre are the stars?</Text>
   </View>
 );

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react';
 import { Animated, FlatList } from 'react-native';
-import { Star } from './Star';
+import Star from './Star';
 
 const initialState = [
   {
@@ -50,18 +50,6 @@ export default () => {
     });
   };
 
-  const renderStars = (item: any, index: any) => {
-    const starFilled = item.selected;
-    return (
-      <Star
-        key={item.id}
-        starFilled={starFilled}
-        index={index}
-        onPress={() => starPressed(index)}
-      />
-    );
-  };
-
   return (
     <Animated.View
       style={{
@@ -74,23 +62,14 @@ export default () => {
         ...shadow,
       }}
     >
-      {/* <FlatList
-        data={showStars}
-        renderItem={renderStars}
-        horizontal
-        scrollEnabled={false}
-      /> */}
-      {/* {showStars.map((item, index) => renderStars(item, index))} */}
-      {
-        showStars.map((x, index) => {
-          <Star
-            key={x.id}
-            starFilled={x.selected}
-            index={index}
-            onPress={() => starPressed(index)}
-          />
-        })
-      }
+      {showStars.map((x, index) => {
+        <Star
+          key={x.id}
+          starFilled={true}
+          index={index}
+          onPress={() => starPressed(index)}
+        />;
+      })}
     </Animated.View>
   );
 };
