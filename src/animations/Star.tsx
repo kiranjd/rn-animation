@@ -18,29 +18,31 @@ export default ({ starFilled, onPress }: Props) => {
     Animated.timing(scale, {
       toValue: 0.8,
       duration: 300,
-      useNativeDriver: true,
+      easing: Easing.bounce,
+      useNativeDriver: true
     }).start();
   }, [scale]);
 
   const animatePressOut = useCallback(() => {
     sequence([
       Animated.timing(scale, {
-        toValue: 2,
+        toValue: 1.8,
         duration: 100,
-        useNativeDriver: true,
+        useNativeDriver: true
       }),
+      Animated.spring(rotate, {
+        toValue: 1,
+        // duration: 1000,
+        // easing: Easing.circle,
+        useNativeDriver: true
+      })
     ])(() =>
       parallel([
-        Animated.timing(rotate, {
-          toValue: 1,
-          easing: Easing.bounce,
-          useNativeDriver: true,
-        }),
         Animated.spring(scale, {
           toValue: 1,
-          useNativeDriver: true,
-        }),
-      ])(),
+          useNativeDriver: true
+        })
+      ])()
     );
   }, [rotate, scale]);
 
@@ -70,10 +72,10 @@ export default ({ starFilled, onPress }: Props) => {
           {
             rotate: rotate.interpolate({
               inputRange: [0, 1],
-              outputRange: ['0deg', '360deg'],
-            }),
-          },
-        ],
+              outputRange: ['0deg', '145deg']
+            })
+          }
+        ]
       }}
     >
       <TouchableWithoutFeedback onPressIn={onPressIn} onPressOut={onPressOut}>
