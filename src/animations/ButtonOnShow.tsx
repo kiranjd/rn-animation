@@ -12,16 +12,16 @@ export default function CircularAnim() {
         Animated.spring(scale, {
           toValue: 1,
           bounciness: 8,
-          useNativeDriver: true,
+          useNativeDriver: true
         }),
         Animated.timing(opacity, {
           toValue: 1,
           duration: 300,
           easing: Easing.linear,
-          useNativeDriver: true,
-        }),
+          useNativeDriver: true
+        })
       ]).start(),
-    [opacity, scale],
+    [opacity, scale]
   );
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export default function CircularAnim() {
         backgroundColor: '#dedede',
         transform: [{ scaleX: scale }],
         opacity,
-        borderRadius,
+        borderRadius
       }}
     >
       <TouchableNativeFeedback onPress={animate}>
