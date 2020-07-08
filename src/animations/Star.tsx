@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
 import { TouchableWithoutFeedback, Animated, Easing } from 'react-native';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { sequence, useAnimatedValue, parallel } from './utils';
+import { useAnimatedValue, parallel } from './utils';
 
 interface Props {
   key: string | number | undefined;
@@ -24,7 +25,7 @@ export default ({ starFilled, onPress }: Props) => {
   }, [scale]);
 
   const animatePressOut = useCallback(() => {
-    sequence([
+    parallel([
       Animated.timing(scale, {
         toValue: 1.8,
         duration: 100,
@@ -32,8 +33,6 @@ export default ({ starFilled, onPress }: Props) => {
       }),
       Animated.spring(rotate, {
         toValue: 1,
-        // duration: 1000,
-        // easing: Easing.circle,
         useNativeDriver: true
       })
     ])(() =>
@@ -41,7 +40,8 @@ export default ({ starFilled, onPress }: Props) => {
         Animated.spring(scale, {
           toValue: 1,
           useNativeDriver: true
-        })
+        }),
+        rotate.setValue(0)
       ])()
     );
   }, [rotate, scale]);

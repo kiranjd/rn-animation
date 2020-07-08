@@ -8,5 +8,5 @@ import { Text } from 'react-native';
 
 storiesOf('Animations', module)
   .addDecorator((getStory: Function) => <CenterView>{getStory()}</CenterView>)
-  .add('Hello World!', () => <Text>Hello World!</Text>)
-  .add('animated rating stars', () => <RatingStars />);
+  .add('animated rating stars', () => <RatingStars />)
+  .add('Hello World!', () => <Text>Hello World!</Text>);
