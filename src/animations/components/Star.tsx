@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { TouchableWithoutFeedback, Animated, Easing } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { useAnimatedValue, parallel } from './utils';
+import { useAnimatedValue, parallel } from '../utils';
 
 interface Props {
   key: string | number | undefined;

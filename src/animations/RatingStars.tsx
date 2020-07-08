@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import { Animated } from 'react-native';
-import Star from './Star';
+import Star from './components/Star';
 import { useAnimatedValue } from './utils';
 
 interface Star {
