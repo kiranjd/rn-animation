@@ -9,20 +9,19 @@ export default function CircularAnim() {
   const animate = useCallback(
     () =>
       Animated.sequence([
-        Animated.delay(5000),
         Animated.spring(scale, {
           toValue: 1,
           bounciness: 8,
-          useNativeDriver: true,
+          useNativeDriver: true
         }),
         Animated.timing(opacity, {
           toValue: 1,
           duration: 300,
           easing: Easing.linear,
-          useNativeDriver: true,
-        }),
+          useNativeDriver: true
+        })
       ]).start(),
-    [opacity, scale],
+    [opacity, scale]
   );
 
   useEffect(() => {
@@ -36,14 +35,14 @@ export default function CircularAnim() {
         height: 70,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#000',
+        backgroundColor: '#dedede',
         transform: [{ scaleX: scale }],
         opacity,
-        borderRadius,
+        borderRadius
       }}
     >
       <TouchableNativeFeedback onPress={animate}>
-        <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
+        <Text style={{ color: '#000', fontSize: 18, fontWeight: 'bold' }}>
           Press me!
         </Text>
       </TouchableNativeFeedback>

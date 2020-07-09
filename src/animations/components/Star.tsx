@@ -1,18 +1,17 @@
 import React, { useCallback } from 'react';
 import { TouchableWithoutFeedback, Animated, Easing } from 'react-native';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { sequence, useAnimatedValue, parallel } from './utils';
+import { useAnimatedValue, parallel } from '../utils';
 
 interface Props {
-  key: string | number | undefined
-  starFilled: boolean
-  index: number
-  onPress: () => void
+  key: string | number | undefined;
+  starFilled: boolean;
+  index: number;
+  onPress: () => void;
 }
 
-// export default ({ starFilled, onPress }) => {
-
-export function Star(props: Props) {
+export default ({ starFilled, onPress }: Props) => {
   const scale = useAnimatedValue(1);
   const rotate = useAnimatedValue(0);
 
@@ -20,29 +19,30 @@ export function Star(props: Props) {
     Animated.timing(scale, {
       toValue: 0.8,
       duration: 300,
-      useNativeDriver: true,
+      easing: Easing.bounce,
+      useNativeDriver: true
     }).start();
   }, [scale]);
 
   const animatePressOut = useCallback(() => {
-    sequence([
+    parallel([
       Animated.timing(scale, {
-        toValue: 2,
+        toValue: 1.8,
         duration: 100,
-        useNativeDriver: true,
+        useNativeDriver: true
       }),
+      Animated.spring(rotate, {
+        toValue: 1,
+        useNativeDriver: true
+      })
     ])(() =>
       parallel([
-        Animated.timing(rotate, {
-          toValue: 1,
-          easing: Easing.bounce,
-          useNativeDriver: true,
-        }),
         Animated.spring(scale, {
           toValue: 1,
-          useNativeDriver: true,
+          useNativeDriver: true
         }),
-      ])(),
+        rotate.setValue(0)
+      ])()
     );
   }, [rotate, scale]);
 
@@ -56,7 +56,7 @@ export function Star(props: Props) {
    */
 
   const onPressIn = () => {
-    props.onPress();
+    onPress();
     animatePressIn();
   };
 
@@ -72,15 +72,15 @@ export function Star(props: Props) {
           {
             rotate: rotate.interpolate({
               inputRange: [0, 1],
-              outputRange: ['0deg', '360deg'],
-            }),
-          },
-        ],
+              outputRange: ['0deg', '145deg']
+            })
+          }
+        ]
       }}
     >
       <TouchableWithoutFeedback onPressIn={onPressIn} onPressOut={onPressOut}>
         <Icon
-          name={props.starFilled ? 'star' : 'star-o'}
+          name={starFilled ? 'star' : 'star-o'}
           size={60}
           color="#FFD700"
           style={{ margin: 5 }}
