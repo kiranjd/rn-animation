@@ -1,8 +1,9 @@
 {
+  "test-runner": "jest",
   "configurations": {
     "ios.sim.debug": {
       "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/Anims.app",
-      "build": "xcodebuild -project ios/Anims.xcodeproj -scheme Anims -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
+      "build": "xcodebuild -workspace ios/Anims.xcworkspace -scheme Anims -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
       "type": "ios.simulator",
       "device": {
         "type": "iPhone 11"

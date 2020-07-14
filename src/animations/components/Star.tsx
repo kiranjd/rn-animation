@@ -78,7 +78,11 @@ export default ({ starFilled, onPress }: Props) => {
         ]
       }}
     >
-      <TouchableWithoutFeedback onPressIn={onPressIn} onPressOut={onPressOut}>
+      <TouchableWithoutFeedback
+        onPressIn={onPressIn}
+        onPressOut={onPressOut}
+        testID="tap-star"
+      >
         <Icon
           name={starFilled ? 'star' : 'star-o'}
           size={60}
