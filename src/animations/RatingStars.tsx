@@ -67,6 +67,7 @@ export default () => {
         flexDirection: 'row',
         ...shadow
       }}
+      testID="stars"
     >
       {showStars.map((ele, idx) => (
         <Star
