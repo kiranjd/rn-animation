@@ -4,5 +4,9 @@ module.exports = {
   rules: {
     'comma-dangle': 0,
     'react-native/no-inline-styles': 0
-  }
+  },
+  env: {
+    jest: true
+  },
+  plugins: ['detox']
 };

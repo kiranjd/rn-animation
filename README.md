@@ -6,6 +6,7 @@ Visualizing and implementing animations in React Native using Animated API
 
 - Storybook
 - Typescript
+- Detox
 
 ## Why
 
