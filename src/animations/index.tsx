@@ -1,4 +1,5 @@
 import ButtonOnShow from './ButtonOnShow';
 import RatingStars from './RatingStars';
+import Loading from './Loading';
 
-export { ButtonOnShow, RatingStars };
+export { ButtonOnShow, RatingStars, Loading };

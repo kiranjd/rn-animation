@@ -1,15 +1,15 @@
 import React from 'react';
 
-import { RatingStars } from './animations';
+import { RatingStars, Loading } from './animations';
 import StorybookUI from '../storybook';
 
-const showStorybook = false;
+const showStorybook = true;
 
 export default () => {
   if (showStorybook) {
     return <StorybookUI />;
   }
-  return <RatingStars />;
+  return <Loading />;
 };
 
 // export default from '../storybook';
